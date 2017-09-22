@@ -4,6 +4,6 @@ This Dockerfile is published on the Docker Hub at [csd1/erlang-otp-elixir-ruby](
 
 # Updating
 
-The `build-dockerfile.sh` script updates the contents of the `Dockerfile` by pulling down the latest contents of the `erlang-otp`, `elixir`, and `ruby` dockerfiles and concatting them together.
+This Dockerfile grabs the contents of the `erlang-otp`, `elixir`, and `ruby` dockerfiles from github. These should be equivalent to the current `:latest` image.
 
-This is a manual process and the updated `Dockerfile` will need to be checked in to this repository for docker hub to pickup the changes.
+The build on Docker Hub to automatically re-trigger any time any of the dependant images update.
