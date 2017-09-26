@@ -1,5 +1,8 @@
 # docker-erlang-otp-elixir-ruby
 
+[![Docker Automated build](https://img.shields.io/docker/automated/csd1/erlang-otp-elixir-ruby.svg)](https://hub.docker.com/r/csd1/erlang-otp-elixir-ruby/)
+[![Docker Build Status](https://img.shields.io/docker/build/csd1/erlang-otp-elixir-ruby.svg)](https://hub.docker.com/r/csd1/erlang-otp-elixir-ruby/builds/)
+
 This Dockerfile is published on the Docker Hub at [csd1/erlang-otp-elixir-ruby](https://hub.docker.com/r/csd1/erlang-otp-elixir-ruby/).
 
 # Updating
