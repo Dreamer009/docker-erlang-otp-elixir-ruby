@@ -1,17 +1,20 @@
 FROM node:8-alpine as scripts
 
 ENV RUBY_BASE_VERSION=2.4 \
+    RUBY_BRANCH=master \
     ELIXIR_BASE_VERSION=1.5 \
-    ERLANG_BASE_VERSION=20
+    ELIXIR_BRANCH=master \
+    ERLANG_BASE_VERSION=20 \
+    ERLANG_BRANCH=master
 
 RUN mkdir /scripts
 WORKDIR /scripts
 
 # Fetch Dockerfiles
 RUN apk add -U curl \
-    && curl -s -o Dockerfile-erlang "https://raw.githubusercontent.com/c0b/docker-erlang-otp/master/${ERLANG_BASE_VERSION}/Dockerfile" \
-    && curl -s -o Dockerfile-elixir "https://raw.githubusercontent.com/c0b/docker-elixir/master/${ELIXIR_BASE_VERSION}/Dockerfile" \
-    && curl -s -o Dockerfile-ruby "https://raw.githubusercontent.com/docker-library/ruby/master/${RUBY_BASE_VERSION}/jessie/Dockerfile"
+    && curl -s -o Dockerfile-erlang "https://raw.githubusercontent.com/c0b/docker-erlang-otp/${ERLANG_BRANCH}/${ERLANG_BASE_VERSION}/Dockerfile" \
+    && curl -s -o Dockerfile-elixir "https://raw.githubusercontent.com/c0b/docker-elixir/${ELIXIR_BRANCH}/${ELIXIR_BASE_VERSION}/Dockerfile" \
+    && curl -s -o Dockerfile-ruby "https://raw.githubusercontent.com/docker-library/ruby/${RUBY_BRANCH}/${RUBY_BASE_VERSION}/jessie/Dockerfile"
 
 ADD package.json .
 ADD index.js .
