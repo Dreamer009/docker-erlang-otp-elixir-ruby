@@ -11,10 +11,9 @@ RUN mkdir /scripts
 WORKDIR /scripts
 
 # Fetch Dockerfiles
-RUN apk add -U curl \
-    && curl -s -o Dockerfile-erlang "https://raw.githubusercontent.com/c0b/docker-erlang-otp/${ERLANG_BRANCH}/${ERLANG_BASE_VERSION}/Dockerfile" \
-    && curl -s -o Dockerfile-elixir "https://raw.githubusercontent.com/c0b/docker-elixir/${ELIXIR_BRANCH}/${ELIXIR_BASE_VERSION}/Dockerfile" \
-    && curl -s -o Dockerfile-ruby "https://raw.githubusercontent.com/docker-library/ruby/${RUBY_BRANCH}/${RUBY_BASE_VERSION}/jessie/Dockerfile"
+ADD "https://raw.githubusercontent.com/c0b/docker-erlang-otp/${ERLANG_BRANCH}/${ERLANG_BASE_VERSION}/Dockerfile" /scripts/Dockerfile-erlang
+ADD "https://raw.githubusercontent.com/c0b/docker-elixir/${ELIXIR_BRANCH}/${ELIXIR_BASE_VERSION}/Dockerfile" /scripts/Dockerfile-elixir
+ADD "https://raw.githubusercontent.com/docker-library/ruby/${RUBY_BRANCH}/${RUBY_BASE_VERSION}/jessie/Dockerfile" /scripts/Dockerfile-ruby
 
 ADD package.json .
 ADD index.js .
