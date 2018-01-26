@@ -3,7 +3,10 @@ var options = { includeComments: false };
 var fs = require('fs');
 
 let envStrings = [];
-let runStrings = [];
+let runStrings = [
+	"set -ex",
+	""
+];
 
 ['Dockerfile-erlang', 'Dockerfile-elixir', 'Dockerfile-ruby'].forEach(filename => {
 	let contents = fs.readFileSync(filename, 'utf8')
@@ -20,11 +23,22 @@ let runStrings = [];
 	});
 
 	runCommands.forEach(command => {
-		let cmd = command.args.replace(/[\\$"]/g, "\\$&");
-		runStrings.push(`bash -c "${cmd}"`);
+		let cmd = command.args.split("&&");
+		runStrings.push("pushd .");
+		cmd.forEach(c => {
+			if (c.match(/set -[xe]/) === null) {
+				runStrings.push(
+					 c.replace(/ +(?= )/g, '')
+					 .replace(/\t/g, '')
+					 .replace(/^ */, '')
+				)
+			}
+		});
+		runStrings.push("popd");
+		runStrings.push("\n");
 	});
 });
 
 console.log(envStrings.join("\n"));
 console.log("\n");
-console.log(runStrings.join("\n\n"));
+console.log(runStrings.join("\n"));
