@@ -206,7 +206,7 @@ COPY --from=build /go/src/github.com/Shopify/ejson/build/bin/linux-amd64 /usr/lo
 
 RUN mix local.hex --force \
     && mix local.rebar --force \
-    && commonDeps='ca-certificates bash jq imagemagick' \
+    && commonDeps='tzdata ca-certificates bash jq imagemagick' \
     && apk add -U --virtual .common-deps $commonDeps \
     && rm -rf /var/cache/apk/*
 
