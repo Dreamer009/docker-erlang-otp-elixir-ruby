@@ -204,9 +204,12 @@ RUN mkdir -p "$GEM_HOME" "$BUNDLE_BIN" \
 
 COPY --from=build /go/src/github.com/Shopify/ejson/build/bin/linux-amd64 /usr/local/bin/ejson
 
+# coreutils below is needed as of 2/16/2018
+#   `env` seems to be broken with `-u` which
+#   is used in the load_env script
 RUN mix local.hex --force \
     && mix local.rebar --force \
-    && commonDeps='libpq tzdata ca-certificates bash jq imagemagick' \
+    && commonDeps='coreutils libpq tzdata ca-certificates bash jq imagemagick' \
     && apk add -U --no-cache --virtual .common-deps $commonDeps
 
 CMD ["iex"]
