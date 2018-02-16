@@ -207,7 +207,6 @@ COPY --from=build /go/src/github.com/Shopify/ejson/build/bin/linux-amd64 /usr/lo
 RUN mix local.hex --force \
     && mix local.rebar --force \
     && commonDeps='libpq tzdata ca-certificates bash jq imagemagick' \
-    && apk add -U --virtual .common-deps $commonDeps \
-    && rm -rf /var/cache/apk/*
+    && apk add -U --no-cache --virtual .common-deps $commonDeps
 
 CMD ["iex"]
