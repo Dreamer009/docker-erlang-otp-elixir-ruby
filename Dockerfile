@@ -181,7 +181,7 @@ RUN set -ex \
 	&& rm -r /usr/src/ruby \
 	\
 	&& gem update --system "$RUBYGEMS_VERSION" \
-        && gem install bundler --version "$BUNDLER_VERSION"
+        && gem install bundler --force --version "$BUNDLER_VERSION"
 
 # install things globally, for great justice
 # and don't create ".bundle" in all our apps
