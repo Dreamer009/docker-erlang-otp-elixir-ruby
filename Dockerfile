@@ -1,8 +1,8 @@
 FROM node:8-alpine as scripts
 
-ENV RUBY_BASE_VERSION=2.4 \
+ENV RUBY_BASE_VERSION=2.5 \
     RUBY_BRANCH=master \
-    ELIXIR_BASE_VERSION=1.5 \
+    ELIXIR_BASE_VERSION=1.6 \
     ELIXIR_BRANCH=master \
     ERLANG_BASE_VERSION=20 \
     ERLANG_BRANCH=master
@@ -13,7 +13,7 @@ WORKDIR /scripts
 # Fetch Dockerfiles
 ADD "https://raw.githubusercontent.com/c0b/docker-erlang-otp/${ERLANG_BRANCH}/${ERLANG_BASE_VERSION}/Dockerfile" /scripts/Dockerfile-erlang
 ADD "https://raw.githubusercontent.com/c0b/docker-elixir/${ELIXIR_BRANCH}/${ELIXIR_BASE_VERSION}/Dockerfile" /scripts/Dockerfile-elixir
-ADD "https://raw.githubusercontent.com/docker-library/ruby/${RUBY_BRANCH}/${RUBY_BASE_VERSION}/jessie/Dockerfile" /scripts/Dockerfile-ruby
+ADD "https://raw.githubusercontent.com/docker-library/ruby/${RUBY_BRANCH}/${RUBY_BASE_VERSION}/stretch/Dockerfile" /scripts/Dockerfile-ruby
 
 ADD package.json .
 ADD index.js .
@@ -25,7 +25,7 @@ RUN yarn install
 RUN node index.js > install.sh
 
 # Release Image
-FROM buildpack-deps:jessie
+FROM buildpack-deps:stretch
 
 # Copy in bash script from above
 COPY --from=scripts /scripts/install.sh /install.sh
