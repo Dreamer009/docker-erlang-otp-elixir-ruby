@@ -11,9 +11,9 @@ RUN mkdir /scripts
 WORKDIR /scripts
 
 # Fetch Dockerfiles
-ADD "https://raw.githubusercontent.com/c0b/docker-erlang-otp/${ERLANG_BRANCH}/${ERLANG_BASE_VERSION}/Dockerfile" /scripts/Dockerfile-erlang
-ADD "https://raw.githubusercontent.com/c0b/docker-elixir/${ELIXIR_BRANCH}/${ELIXIR_BASE_VERSION}/Dockerfile" /scripts/Dockerfile-elixir
-ADD "https://raw.githubusercontent.com/docker-library/ruby/${RUBY_BRANCH}/${RUBY_BASE_VERSION}/stretch/Dockerfile" /scripts/Dockerfile-ruby
+ADD "https://raw.githubusercontent.com/c0b/docker-erlang-otp/${ERLANG_BRANCH}/${ERLANG_BASE_VERSION}/slim/Dockerfile" /scripts/Dockerfile-erlang
+ADD "https://raw.githubusercontent.com/c0b/docker-elixir/${ELIXIR_BRANCH}/${ELIXIR_BASE_VERSION}/slim/Dockerfile" /scripts/Dockerfile-elixir
+ADD "https://raw.githubusercontent.com/docker-library/ruby/${RUBY_BRANCH}/${RUBY_BASE_VERSION}/stretch/slim/Dockerfile" /scripts/Dockerfile-ruby
 
 ADD package.json .
 ADD index.js .
@@ -25,7 +25,7 @@ RUN yarn install
 RUN node index.js > install.sh
 
 # Release Image
-FROM buildpack-deps:stretch
+FROM debian:stretch
 
 # Copy in bash script from above
 COPY --from=scripts /scripts/install.sh /install.sh
