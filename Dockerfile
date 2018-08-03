@@ -1,3 +1,9 @@
+FROM golang:1.9-alpine as build
+
+RUN apk add -U bash git make
+RUN go get github.com/Shopify/ejson \
+    && (cd /go/src/github.com/Shopify/ejson; make binaries)
+
 FROM node:8-alpine as scripts
 
 ENV RUBY_BASE_VERSION=2.5 \
@@ -43,9 +49,11 @@ RUN bash install.sh
 
 # Customizations
 
+COPY --from=build /go/src/github.com/Shopify/ejson/build/bin/linux-amd64 /usr/local/bin/ejson
+
 RUN mix local.hex --force \
     && mix local.rebar --force \
-    && runtimeDeps='ca-certificates' \
+    && runtimeDeps='libpq5 ca-certificates jq imagemagick' \
     && apt-get update \
     && apt-get install -y --no-install-recommends $runtimeDeps \
     && rm -rf /var/lib/apt/lists/*
