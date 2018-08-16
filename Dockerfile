@@ -8,9 +8,9 @@ FROM node:8-alpine as scripts
 
 ENV RUBY_BASE_VERSION=2.5 \
     RUBY_BRANCH=master \
-    ELIXIR_BASE_VERSION=1.6 \
+    ELIXIR_BASE_VERSION=1.7 \
     ELIXIR_BRANCH=master \
-    ERLANG_BASE_VERSION=20 \
+    ERLANG_BASE_VERSION=21 \
     ERLANG_BRANCH=master
 
 RUN mkdir /scripts
