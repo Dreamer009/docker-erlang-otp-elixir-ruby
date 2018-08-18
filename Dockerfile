@@ -208,9 +208,6 @@ ENV LANG=C.UTF-8 \
     BUNDLE_APP_CONFIG="$GEM_HOME"
 ENV PATH $BUNDLE_BIN:$PATH
 
-# Run the contents of the Dockerfiles
-RUN bash install.sh
-
 # Customizations
 
 COPY --from=build /go/src/github.com/Shopify/ejson/build/bin/linux-amd64 /usr/local/bin/ejson
