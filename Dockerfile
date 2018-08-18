@@ -1,3 +1,9 @@
+FROM golang:1.9-alpine as build
+
+RUN apk add -U bash git make
+RUN go get github.com/Shopify/ejson \
+    && (cd /go/src/github.com/Shopify/ejson; make binaries)
+
 # Release Image
 FROM debian:stretch
 
