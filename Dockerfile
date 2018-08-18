@@ -177,8 +177,8 @@ ENV ELIXIR_VERSION="v1.7.2" \
 	LANG=C.UTF-8
 
 RUN set -xe \
-	&& ELIXIR_DOWNLOAD_URL="https://github.com/elixir-lang/elixir/releases/download/${ELIXIR_VERSION}/Precompiled.zip" \
-	&& ELIXIR_DOWNLOAD_SHA256="d39c0fcdd2053f0ae2a9b1394ee582ac3398d9538881024f2252688ad92aad86" \
+        && ELIXIR_DOWNLOAD_URL="https://repo.hex.pm/builds/elixir/v1.7.2-otp-21.zip" \
+	&& ELIXIR_DOWNLOAD_SHA256="7790fb5d63045e4b3c5482dde05abe90b417b00d532ca4dfd1c1295d0367e777" \
 	&& buildDeps=' \
 		ca-certificates \
 		curl \
