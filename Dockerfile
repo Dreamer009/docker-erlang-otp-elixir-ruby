@@ -21,9 +21,11 @@ ENV RUBY_MAJOR=2.5 \
     BUNDLE_APP_CONFIG="$GEM_HOME" \
 # path recommendation: https://github.com/bundler/bundler/pull/6469#issuecomment-383235438
     PATH=$GEM_HOME/bin:$BUNDLE_PATH/gems/bin:$PATH \
-    OTP_VERSION=21.0.5 \
+    OTP_VERSION=21.1 \
+    OTP_DOWNLOAD_SHA256=7212f895ae317fa7a086fa2946070de5b910df5d41263e357d44b0f1f410af0f \
 # elixir expects utf8.
-    ELIXIR_VERSION=v1.7.2 \
+    ELIXIR_VERSION=v1.7.3 \
+    ELIXIR_DOWNLOAD_SHA256=2ea1eef6751c54b475225f20caaad20702c198fbddff1cb1513b03aee25a5f90 \
     LANG=C.UTF-8
 
 RUN set -ex \
@@ -141,7 +143,6 @@ RUN set -ex \
 # https://github.com/erlang/docker-erlang-otp/blob/fe505cb6aa9afc509add31825b7f1734a0163c04/21/slim/Dockerfile
 ##########
 	&& OTP_DOWNLOAD_URL="https://github.com/erlang/otp/archive/OTP-${OTP_VERSION}.tar.gz" \
-	&& OTP_DOWNLOAD_SHA256="70124f91693364f7fd2ec65baa45c434f069a14f5aa2c18377e1c3f320f47ac5" \
 	&& curl -fSL -o otp-src.tar.gz "$OTP_DOWNLOAD_URL" \
 	&& echo "$OTP_DOWNLOAD_SHA256  otp-src.tar.gz" | sha256sum -c - \
 	&& export ERL_TOP="/usr/src/otp_src_${OTP_VERSION%%@*}" \
@@ -160,7 +161,6 @@ RUN set -ex \
 # https://github.com/c0b/docker-elixir/blob/a502dfaf78efdf61ec82419c190741df293c0b29/1.7/slim/Dockerfile
 ##########
         && ELIXIR_DOWNLOAD_URL="https://repo.hex.pm/builds/elixir/$ELIXIR_VERSION-otp-$(echo $OTP_VERSION | cut -d. -f1).zip" \
-	&& ELIXIR_DOWNLOAD_SHA256="7790fb5d63045e4b3c5482dde05abe90b417b00d532ca4dfd1c1295d0367e777" \
 	&& curl -fSL -o elixir-precompiled.zip $ELIXIR_DOWNLOAD_URL \
 	&& echo "$ELIXIR_DOWNLOAD_SHA256  elixir-precompiled.zip" | sha256sum -c - \
 	&& unzip -d /usr/local elixir-precompiled.zip \
