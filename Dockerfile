@@ -1,6 +1,6 @@
-FROM node:8-alpine as scripts
+FROM node:14-alpine as scripts
 
-ENV RUBY_BASE_VERSION=2.5 \
+ENV RUBY_BASE_VERSION=2.6 \
   RUBY_BRANCH=master \
   ELIXIR_BASE_VERSION=1.9 \
   ELIXIR_BRANCH=master \
@@ -43,9 +43,7 @@ RUN bash install.sh
 
 # Customizations
 
-RUN mix local.hex --force \
-  && mix local.rebar --force \
-  && runtimeDeps='ca-certificates' \
+RUN runtimeDeps='ca-certificates' \
   && apt-get update \
   && apt-get install -y --no-install-recommends $runtimeDeps \
   && rm -rf /var/lib/apt/lists/*
