@@ -157,6 +157,7 @@ RUN mix local.hex --force \
   && runtimeDeps='ca-certificates git' \
   && apt-get update \
   && apt-get install -y --no-install-recommends $runtimeDeps \
-  && rm -rf /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/* \
+  && gem install bundler
 
 CMD ["iex", "irb", "node"]
